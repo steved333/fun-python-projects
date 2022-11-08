@@ -2,7 +2,6 @@
 #Working python interpreter 3.9.6
 
 from bs4 import BeautifulSoup as BS
-import requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from time import sleep
