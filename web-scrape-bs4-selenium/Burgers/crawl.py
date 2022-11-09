@@ -9,9 +9,10 @@ import csv
 import os
 
 
+url = input("what url are you scraping? ")
 driver = webdriver.Chrome()
-driver.get("https://www.mcdonalds.com/de/de-de/restaurant-suche.html/l/berlin")
-sleep(10)
+driver.get(url)
+sleep(5)
 page = driver.page_source
 soup = BS(page, 'lxml')
 
@@ -19,13 +20,16 @@ content = soup.find('ul', class_='ubsf_sitemap-list')
 restaurantsList = content.find_all('div', class_='ubsf_sitemap-location-address')
 
 
-try:
-  os.mkdir("web-scrape-bs4-selenium/Burgers/CSV")
-except OSError as e:
-  print("Directory exists")
+# try:
+#   os.mkdir("web-scrape-bs4-selenium/Burgers/CSV")
+# except OSError as e:
+#   print("Directory exists")
+
+with open('restaurant.txt', 'w') as file:
+  file.write(str(soup))
 
 
-with open('web-scrape-bs4-selenium/Burgers/CSV/restaurant.csv', mode='w', newline='') as outputFile:
+with open('CSV/restaurant.csv', mode='w', newline='') as outputFile:
   restaurantCSV = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
   restaurantCSV.writerow((['restaurant', 'street', 'zip', 'city', 'country']))
 
